@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="layout/header::copy(${title})"></div>
+<body>
+    <h1>Hello Spring Boot!!!</h1>
+    <p th:text="${hello}"></p>
+    <div>
+        <p>[[${name}]]</p>
+    </div>
+    <div th:utext="${content}"></div>
+    <a href="/goods/lists">点击跳到商品页</a>
+</body>
+<div th:replace="layout/footer::copy"></div>
+</html>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mall.mapper.MallMemberMapper">
+  <resultMap id="BaseResultMap" type="com.example.mall.pojo.MallMember">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="roleid" jdbcType="TINYINT" property="roleid" />
+    <result column="encrypt" jdbcType="VARCHAR" property="encrypt" />
+    <result column="nickname" jdbcType="CHAR" property="nickname" />
+    <result column="last_login_time" jdbcType="INTEGER" property="lastLoginTime" />
+    <result column="last_login_ip" jdbcType="CHAR" property="lastLoginIp" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, `password`, roleid, encrypt, nickname, last_login_time, last_login_ip, 
+    email, token, `status`
+  </sql>
+  <select id="selectMemberLists" parameterType="com.example.mall.pojo.MallMember" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mall_member
+    where status = 1
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mall_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mall_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.Long">
+    delete from mall_member where id in
+    <foreach item="id" collection="array" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.mall.pojo.MallMember" useGeneratedKeys="true">
+    insert into mall_member (username, `password`, roleid, 
+      encrypt, nickname, last_login_time, 
+      last_login_ip, email, token, 
+      `status`)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{roleid,jdbcType=TINYINT}, 
+      #{encrypt,jdbcType=VARCHAR}, #{nickname,jdbcType=CHAR}, #{lastLoginTime,jdbcType=INTEGER}, 
+      #{lastLoginIp,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.mall.pojo.MallMember" useGeneratedKeys="true">
+    insert into mall_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="encrypt != null">
+        encrypt,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=TINYINT},
+      </if>
+      <if test="encrypt != null">
+        #{encrypt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=CHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginIp != null">
+        #{lastLoginIp,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mall.pojo.MallMember">
+    update mall_member
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        roleid = #{roleid,jdbcType=TINYINT},
+      </if>
+      <if test="encrypt != null">
+        encrypt = #{encrypt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=CHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip = #{lastLoginIp,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.mall.pojo.MallMember">
+    update mall_member
+    set username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      roleid = #{roleid,jdbcType=TINYINT},
+      encrypt = #{encrypt,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=CHAR},
+      last_login_time = #{lastLoginTime,jdbcType=INTEGER},
+      last_login_ip = #{lastLoginIp,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
